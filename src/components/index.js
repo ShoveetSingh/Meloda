@@ -1,0 +1,5 @@
+export {default as Blogs} from './Blogs'
+export {default as Login} from './Login'
+export {default as Footer} from './Footer'
+export {default as Careers} from './Careers'
+export {default as Courses} from './Courses'
