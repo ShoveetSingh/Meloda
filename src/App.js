@@ -1,8 +1,30 @@
 //import {ToastContainer,toast} from 'react-toastify';
 //import "react-toastify/dist/ReactToastify.css";
-import React from "react";
-import {Card,List,ListItem,ListItemPrefix,Typography} from "@material-tailwind/react";
+import {React,useContext} from "react";
+import {Box,Typography} from "@mui/material";
+import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import {FaMusic,FaHeart,FaGem,FaGraduationCap} from 'react-icons/fa'
+import {Footer} from './components';
+
+const LeftArrow = () => {
+  const { scrollPrev } = useContext(VisibilityContext);
+
+  return (
+    <Typography onClick={() => scrollPrev()} className="right-arrow">
+      <img src='/Button.png' alt="left-arrow" style={{ position: 'absolute', left: '0', zIndex: '10' }}/>
+    </Typography>
+  );
+};
+
+const RightArrow = () => {
+  const { scrollNext } = useContext(VisibilityContext);
+
+  return (
+    <Typography onClick={() => scrollNext()} className="left-arrow">
+      <img src='./Button (1).png' alt="right-arrow" style={{ position: 'absolute', right: '0', zIndex: '10' }}/>
+    </Typography>
+  );
+};
 
 
 
@@ -175,6 +197,31 @@ function App() {
       <p1 className="font-semibold text-gray-400 text-lg px-16 py-2">Kolkata</p1>
       </div>
      </div>
+     <div className="flex flex-col justify-center items-center py-4">
+      <h1 className="text-semibold text-[rgba(54,65,85,1)] text-5xl">About Our Teachers</h1>
+      <div style={{'position':'relative'}}>
+      <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
+        <Box 
+        m="40px" 
+        flexDirection="row"  
+        width="500px"  // Increase the width of the Box
+        height="400px" // Increase the height of the Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        bgcolor="lightgray"
+        borderRadius="8px">
+          <div className="flex flex-col">
+          <h1 className="text-3xl font-semibold text-[rgba(54,65,85,1)]">Hindustani Classical</h1>
+          <p1 className="py-8">Jan Doe a distinguished Hindustani classicalmusic teacher with years of experience and a deep passion for this rich and ancient tradition. 
+            She trained under some of the most respectablw gurus and brings a wealth of knowledgein rages and tales.
+          </p1>
+          </div>
+        </Box>
+      </ScrollMenu>
+     </div>
+  </div>
+  <Footer/>
   </div>
 );
   
