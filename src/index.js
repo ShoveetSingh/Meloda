@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import {Footer} from './components'
+
 import {Routes,Route} from 'react-router-dom';
 import {BrowserRouter as Router} from 'react-router-dom';
 
@@ -13,6 +15,7 @@ root.render(
     <Router>
       <Routes>
         <Route path="/" element={<App/>}/>
+        <Route path="/footer" element={<Footer/>}/>
       </Routes>
     </Router>
   </React.StrictMode>

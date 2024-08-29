@@ -1,7 +1,7 @@
 //import {ToastContainer,toast} from 'react-toastify';
 //import "react-toastify/dist/ReactToastify.css";
 import {React,useContext} from "react";
-import {Box,Typography} from "@mui/material";
+import {Box,Typography,Card,Button} from "@mui/material";
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import {FaMusic,FaHeart,FaGem,FaGraduationCap} from 'react-icons/fa'
 import {Footer} from './components';
@@ -10,7 +10,7 @@ const LeftArrow = () => {
   const { scrollPrev } = useContext(VisibilityContext);
 
   return (
-    <Typography onClick={() => scrollPrev()} className="right-arrow">
+    <Typography onClick={() => scrollPrev()}>
       <img src='/Button.png' alt="left-arrow" style={{ position: 'absolute', left: '0', zIndex: '10' }}/>
     </Typography>
   );
@@ -20,19 +20,46 @@ const RightArrow = () => {
   const { scrollNext } = useContext(VisibilityContext);
 
   return (
-    <Typography onClick={() => scrollNext()} className="left-arrow">
+    <Typography onClick={() => scrollNext()}>
       <img src='./Button (1).png' alt="right-arrow" style={{ position: 'absolute', right: '0', zIndex: '10' }}/>
     </Typography>
   );
 };
 
+const Leftarrow = () => {
+  const visibility = useContext(VisibilityContext);
 
+  return (
+    <Button className="flex cursor-pointer" onClick={() => visibility.scrollPrev()}>
+      <img src='/Button.png' alt="left-arrow" />
+    </Button>
+  );
+}
+
+const Rightarrow = () => {
+  const visibility = useContext(VisibilityContext);
+
+  return (
+    <Button className=" cursor-pointer" onClick={() => visibility.scrollNext()}>
+      <img src='./Button (1).png' alt="right-arrow" />
+    </Button>
+  );
+}
 
 function App() {
   
   let image1 = [{id:1,image:'/tabla.jpg',h:'Tabla'},{id:2,image:'/Piano.jpg',h:'Piano'},{id:3,image:'/Violin.jpg',h:'Violin'},{id:4,image:'/Guitar.png',h:'Guitar'}];
   let image2 = [{id:1,image:'/oldman.png',h:'Hindustani'},{id:2,image:'/kurta.png',h:'Carnatic'},{id:3,image:'/Singer.png',h:'Western vocal'},{id:4,image:'/Boy.png',h:'Bollywood vocal'}]
 
+  let arr = [
+    {id:1,des:'Meloda House has transformed my approach to learning music.The Lesson are clear.',name:'Alex M',role:'student'},
+    {id:1,des:'Meloda House has transformed my approach to learning music.The Lesson are clear.',name:'Alex M',role:'student'},
+    {id:1,des:'Meloda House has transformed my approach to learning music.The Lesson are clear.',name:'Alex M',role:'student'},
+    {id:1,des:'Meloda House has transformed my approach to learning music.The Lesson are clear.',name:'Alex M',role:'student'},
+    {id:1,des:'Meloda House has transformed my approach to learning music.The Lesson are clear.',name:'Alex M',role:'student'},
+    {id:1,des:'Meloda House has transformed my approach to learning music.The Lesson are clear.',name:'Alex M',role:'student'},
+    {id:1,des:'Meloda House has transformed my approach to learning music.The Lesson are clear.',name:'Alex M',role:'student'}
+  ];
 
   return (
     <div>
@@ -94,7 +121,7 @@ function App() {
       }}>
         <img
         src="/tabla.jpg"
-        alter="tabla"
+        alt="tabla"
         className="h-screen w-screen"
         />
       </div>
@@ -214,13 +241,38 @@ function App() {
           <div className="flex flex-col">
           <h1 className="text-3xl font-semibold text-[rgba(54,65,85,1)]">Hindustani Classical</h1>
           <p1 className="py-8">Jan Doe a distinguished Hindustani classicalmusic teacher with years of experience and a deep passion for this rich and ancient tradition. 
-            She trained under some of the most respectablw gurus and brings a wealth of knowledgein rages and tales.
+            She trained under some of the most respectable gurus and brings a wealth of knowledgein rages and tales.
           </p1>
           </div>
         </Box>
       </ScrollMenu>
      </div>
   </div>
+  <div className="mt-8">
+    <div className="flex flex-row">
+    <h1 className="ml-4 text-3xl font-semibold text-[rgba(54,65,85,1)]">What our Students say</h1>
+    {/* <div className="flex px-64 ml-24"> 
+    <img src="Button.png" alt="left"/>
+    <img src = "Button (1).png" alt="right"/>
+    </div> */}
+    </div>
+    <div>
+    <div className="flex w-full">
+     <ScrollMenu LeftArrow={Leftarrow} RightArrow={Rightarrow} >
+     <div className='flex flex-row '>
+      {arr.map((data,index)=>(
+        <div  key={index} >
+          <Card  className="inline-block w-64 p-4 m-2 bg-gray-300 rounded-lg shadow">
+            <h1 className="font-semibold">{data.des}</h1>
+            <p1 className="font-semibold text-sm">{data.name}</p1>
+            <p1 className="flex flex-col text-sm">{data.role}</p1>
+            </Card>
+            </div>
+      ))}</div>
+     </ScrollMenu>
+     </div>
+     </div>
+    </div>
   <Footer/>
   </div>
 );
