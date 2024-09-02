@@ -1,53 +1,59 @@
-//import {ToastContainer,toast} from 'react-toastify';
-//import "react-toastify/dist/ReactToastify.css";
-import {React,useContext} from "react";
+
+import {React,useContext,useRef} from "react";
 import {Box,Typography,Card,Button} from "@mui/material";
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import {FaMusic,FaHeart,FaGem,FaGraduationCap} from 'react-icons/fa'
 import {Footer} from './components';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-const LeftArrow = () => {
-  const { scrollPrev } = useContext(VisibilityContext);
+// const LeftArro = () => {
+//   const { scrollPrev } = useContext(VisibilityContext);
 
-  return (
-    <Typography onClick={() => scrollPrev()}>
-      <img src='/Button.png' alt="left-arrow" style={{ position: 'absolute', left: '0', zIndex: '10' }}/>
-    </Typography>
-  );
-};
+//   return (
+//     <Typography onClick={() => scrollPrev()}>
+//       <img src='/Button.png' alt="left-arrow" style={{ position: 'absolute', left: '0', zIndex: '10' }}/>
+//     </Typography>
+//   );
+// };
 
-const RightArrow = () => {
-  const { scrollNext } = useContext(VisibilityContext);
+// const RightArro = () => {
+//   const { scrollNext } = useContext(VisibilityContext);
 
-  return (
-    <Typography onClick={() => scrollNext()}>
-      <img src='./Button (1).png' alt="right-arrow" style={{ position: 'absolute', right: '0', zIndex: '10' }}/>
-    </Typography>
-  );
-};
+//   return (
+//     <Typography onClick={() => scrollNext()}>
+//       <img src='./Button (1).png' alt="right-arrow" style={{ position: 'absolute', right: '0', zIndex: '10' }}/>
+//     </Typography>
+//   );
+// };
 
-const Leftarrow = () => {
-  const visibility = useContext(VisibilityContext);
 
-  return (
-    <Button className="flex cursor-pointer" onClick={() => visibility.scrollPrev()}>
-      <img src='/Button.png' alt="left-arrow" />
-    </Button>
-  );
-}
-
-const Rightarrow = () => {
-  const visibility = useContext(VisibilityContext);
-
-  return (
-    <Button className=" cursor-pointer" onClick={() => visibility.scrollNext()}>
-      <img src='./Button (1).png' alt="right-arrow" />
-    </Button>
-  );
-}
 
 function App() {
-  
+
+  const containerRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
+
+  var settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   let image1 = [{id:1,image:'/tabla.jpg',h:'Tabla'},{id:2,image:'/Piano.jpg',h:'Piano'},{id:3,image:'/Violin.jpg',h:'Violin'},{id:4,image:'/Guitar.png',h:'Guitar'}];
   let image2 = [{id:1,image:'/oldman.png',h:'Hindustani'},{id:2,image:'/kurta.png',h:'Carnatic'},{id:3,image:'/Singer.png',h:'Western vocal'},{id:4,image:'/Boy.png',h:'Bollywood vocal'}]
 
@@ -198,9 +204,6 @@ function App() {
         </div>
       </div>
      </div>
-     {/* <div className="text-5xl text-semibold flex text-[rgba(54,65,85,1)] justify-center items-center py-6">
-      How it Works
-     </div> */}
      <div className="flex flex-row px-6">
          <img src='/Section.png' alt='how'></img>
      </div>
@@ -227,7 +230,7 @@ function App() {
      <div className="flex flex-col justify-center items-center py-4">
       <h1 className="text-semibold text-[rgba(54,65,85,1)] text-5xl">About Our Teachers</h1>
       <div style={{'position':'relative'}}>
-      <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
+      <ScrollMenu >
         <Box 
         m="40px" 
         flexDirection="row"  
@@ -251,14 +254,18 @@ function App() {
   <div className="mt-8">
     <div className="flex flex-row">
     <h1 className="ml-4 text-3xl font-semibold text-[rgba(54,65,85,1)]">What our Students say</h1>
-    {/* <div className="flex px-64 ml-24"> 
-    <img src="Button.png" alt="left"/>
-    <img src = "Button (1).png" alt="right"/>
-    </div> */}
-    </div>
+    <div className="flex flex-row " >
+    <button onClick={scrollLeft} className="p-2 ml-64">
+    <img src='/Button.png' alt="left-arrow" />
+      </button>
+      <button onClick={scrollRight} className="p-2 ">
+     <img src='/Button (1).png' alt="right-arrow"/>
+      </button>
+      </div>
+      </div>
+    <Slider {...settings}>
     <div>
-    <div className="flex w-full">
-     <ScrollMenu LeftArrow={Leftarrow} RightArrow={Rightarrow} >
+    <div className="flex justify-center w-full overflow-x-scroll" ref={containerRef}>
      <div className='flex flex-row '>
       {arr.map((data,index)=>(
         <div  key={index} >
@@ -269,9 +276,9 @@ function App() {
             </Card>
             </div>
       ))}</div>
-     </ScrollMenu>
      </div>
      </div>
+     </Slider>
     </div>
   <Footer/>
   </div>
